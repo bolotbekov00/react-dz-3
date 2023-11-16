@@ -1,25 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import {useState} from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [write, setWrite] = useState("напиши что-то");
+    const [add, setAdd] = useState([]);
+
+    const addTodo = () => {
+        const newAdd = {
+            span: write,
+        };
+        setAdd([...add, newAdd]);
+    };
+
+    return (
+        <div className="App">
+            <input
+                type="text"
+                value={write}
+                onChange={(event) => setWrite(event.target.value)}
+            />
+            <button onClick={addTodo}>Добавить</button>
+            <div className="block-todo">
+                {add.map((e, index) => (
+                    <div className="todo-card" key={index}>
+                        <h1>Надо это сделать!!</h1>
+                        <span>{e.span}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
 }
 
 export default App;
